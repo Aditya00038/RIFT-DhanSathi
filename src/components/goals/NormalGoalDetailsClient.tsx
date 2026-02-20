@@ -71,8 +71,8 @@ export default function NormalGoalDetailsClient({ goal: initialGoal }: NormalGoa
     });
   }, [goal]);
 
-  const unlockedAchievements = achievementProgress.filter(a => a.unlocked);
-  const lockedAchievements = achievementProgress.filter(a => !a.unlocked);
+  const unlockedAchievements = achievementProgress.achievements.filter(a => a.unlocked);
+  const lockedAchievements = achievementProgress.achievements.filter(a => !a.unlocked);
   const aiAdvice = useMemo(() => getAIGoalAdvice(goal), [goal]);
 
   const progress = goal.targetAmount > 0
