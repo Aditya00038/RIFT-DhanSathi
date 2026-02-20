@@ -201,12 +201,6 @@ algokit project deploy testnet
 
 ---
 
-## Team Members & Roles
-
-| Name | Role |
-|---|---|
-| Aaditya Hande | Full-Stack Development, Smart Contract, AlgoKit Integration |
-
 > *Add additional team members and their roles here.*
 
 ---
