@@ -11,9 +11,21 @@ const algodPort = 443;
 export const algodClient = new algosdk.Algodv2(algodToken, algodServer, algodPort);
 
 // --- Pera Wallet Setup ---
-export const peraWallet = new PeraWalletConnect({
-    chainId: 416002, // TestNet
-});
+// Lazy-initialize to avoid accessing browser APIs (window) during SSR
+let _peraWallet: PeraWalletConnect | null = null;
+
+function getPeraWallet(): PeraWalletConnect {
+    if (!_peraWallet) {
+        _peraWallet = new PeraWalletConnect({
+            chainId: 416002, // TestNet
+        });
+    }
+    return _peraWallet;
+}
+
+export const peraWallet = typeof window !== "undefined"
+    ? getPeraWallet()
+    : (null as unknown as PeraWalletConnect);
 
 // Reconnect to session when the component is mounted
 export async function reconnectWalletSession() {

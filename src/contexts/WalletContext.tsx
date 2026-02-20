@@ -25,6 +25,7 @@ export function WalletProvider({ children }: { children: ReactNode }) {
   }, []);
 
   const handleConnectWallet = useCallback(async () => {
+    if (!peraWallet) return;
     setIsConnecting(true);
     try {
       const addresses = await peraWallet.connect();
@@ -51,6 +52,10 @@ export function WalletProvider({ children }: { children: ReactNode }) {
   // Reconnect session on mount (only once)
   useEffect(() => {
     if (isInitialized) return;
+    if (typeof window === "undefined" || !peraWallet) {
+      setIsConnecting(false);
+      return;
+    }
     
     setIsInitialized(true);
     reconnectWalletSession()
